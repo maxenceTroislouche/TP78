@@ -79,43 +79,37 @@ int rechercherLivreAuteur(const T_Bibliotheque  *ptrB,T_Aut auteur){
 }
 	
 int recherchePositionLivre(T_Bibliotheque *ptrB,T_Aut auteur,T_Titre titre){
-	  	int n=0;
-            for(int i=0;i<ptrB->nbLivres;i++){
-               	if((strcmp(ptrB->etagere[i].titre,titre)==0) && (strcmp(ptrB->etagere[i].auteur,auteur)==0))
-                {
-                    for(int j=i;j<ptrB->nbLivres;j++){
-                    	ptrB->etagere[j]=ptrB->etagere[j+1];
-                    }
-                    ptrB->nbLivres--;
-                    i--;
-                }
-                n++;
-            }
-        return n;
+	  	int i=0;
+	  	while((strcmp(ptrB->etagere[i].titre,titre)!=0) || (strcmp(ptrB->etagere[i].auteur,auteur) !=0))
+        {
+            	i++;
+        }
+        return i;
 }
 
 int supprimerLivre(T_Bibliotheque *ptrB,T_Aut auteur,T_Titre titre){
 	int placeLivreEtagere = recherchePositionLivre(ptrB, auteur,titre);
 	printf("place livre : %d\n",placeLivreEtagere);
-	/*if (placeLivreEtagere != -1){
+	if (placeLivreEtagere != -1){
 		//suppression du livre = décalage des livres qui se trouvent après
 		int i = placeLivreEtagere;
 		for(i = placeLivreEtagere; i < ptrB->nbLivres-1; i++){
-			ptrB->etagere[placeLivreEtagere] = ptrB->etagere[placeLivreEtagere+1];
+			ptrB->etagere[placeLivreEtagere] = ptrB->etagere[placeLivreEtagere];
 		}
 		ptrB->nbLivres --;
 		printf("suppression réussie\n");
-	}*/
+	}
 
 	return 0;
 }
 
-int emprunterLivre(T_Bibliotheque *ptrB, T_Titre titre, T_Aut auteur, T_Emp nom_Emprunteur){
+int emprunterLivre(T_Bibliotheque *ptrB, T_Titre titre, T_Aut auteur, const char *nom_Emprunteur){
 	//on récupère la position du livre dans l'étagère
 	int placeLivreEtagere = recherchePositionLivre(ptrB, auteur,titre);
 	printf("place livre : %d\n",placeLivreEtagere);
 	if (placeLivreEtagere != -1){
-		strcpy(&ptrB->etagere[placeLivreEtagere].emprunteur, nom_Emprunteur);
+		strcpy(&ptrB->etagere[placeLivreEtagere].emprunteur.nomemprunteur, nom_Emprunteur);
+		printf("%s\n", ptrB->etagere[placeLivreEtagere].emprunteur);
 		printf("emprunt réussi\n");
 	}
 	return 0;
@@ -124,7 +118,8 @@ int emprunterLivre(T_Bibliotheque *ptrB, T_Titre titre, T_Aut auteur, T_Emp nom_
 int rendreLivre(T_Bibliotheque *ptrB, T_Titre titre, T_Aut auteur){
 	int placeLivreEtagere = recherchePositionLivre(ptrB,auteur,titre);
 	if(placeLivreEtagere != -1){
-		ptrB->etagere[placeLivreEtagere].emprunteur[0] = '\0';
+		ptrB->etagere[placeLivreEtagere].emprunteur.nomemprunteur[0] = '\0';
+		printf("%s\n", ptrB->etagere[placeLivreEtagere].emprunteur);
 		printf("livre rendu\n");
 	}
 	return 0;

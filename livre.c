@@ -10,7 +10,10 @@ lireChaine("CODE :", (ptrL->code), MAX_CODE);
 lireChaine("EDITEUR :", (ptrL->editeur), MAX );
 printf("ANNEE : ");
 scanf("%d",&(ptrL->annee));
-ptrL->emprunteur[0]='\0';
+ptrL->emprunteur.nomemprunteur[0]='\0';
+ptrL->emprunteur.lejour = lu;
+ptrL->emprunteur.lemois = janv;
+ptrL->emprunteur.lannee=0;
 }
 
 void afficherLivre(const T_livre *ptrL)
@@ -25,7 +28,7 @@ printf("ANNEE : %d", ptrL->annee);
 printf(" - ");
 afficherChaine("EDITEUR :", (ptrL->editeur ));
 printf(" - ");
-afficherChaine("EMPRUNTEUR :", (ptrL->emprunteur ));
+afficherChaine("EMPRUNTEUR :", (ptrL->emprunteur.nomemprunteur));
 printf("\n");
 }
 

@@ -149,7 +149,7 @@ switch(chx)
 		lireChaine("titre",titreLivre,100);
 		printf("Donnez l'auteur du livre que vous voulez rendre\n");
 		lireChaine("auteur",auteurLivre,100);
-		//rendreLivre(&B,titreLivre,auteurLivre);
+		rendreLivre(&B,titreLivre,auteurLivre);
 		break;
 	case 8:
 		triTitre(&B);
